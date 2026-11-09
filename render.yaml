@@ -1,0 +1,40 @@
+databases:
+  - name: davomat-db
+    plan: basic-256mb
+    databaseName: davomat
+    user: davomat_user
+
+services:
+  - type: web
+    name: davomat-uz474
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: davomat-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: INITIAL_SUPERADMIN_PASSWORD
+        sync: false
+      - key: INITIAL_ADMIN_PASSWORD
+        sync: false
+
+  - type: worker
+    name: davomat-telegram-bot
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: davomat-db
+          property: connectionString
+      - key: BOT_TOKEN
+        sync: false

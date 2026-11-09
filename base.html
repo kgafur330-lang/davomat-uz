@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="uz"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DAVOMAT.UZ474</title><style>
+*{box-sizing:border-box}body{margin:0;background:#0b1220;color:#e8eef8;font:15px Arial,sans-serif}
+header{background:#111c30;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+a{color:#78b7ff;text-decoration:none;margin-right:14px}main{max-width:1100px;margin:28px auto;padding:0 16px}
+.card{background:#152238;border:1px solid #263b59;border-radius:14px;padding:18px;margin:14px 0}
+input,select,button{padding:11px;border-radius:8px;border:1px solid #405575;margin:5px 4px 5px 0;background:#0e192b;color:#fff}
+button{background:#1769aa;border:0;cursor:pointer}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:10px;border-bottom:1px solid #30425d}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.muted{color:#a9bad0}.flash{padding:10px;border-radius:8px;background:#243c5a;margin:8px 0}
+</style></head><body><header><b>DAVOMAT.UZ474</b><nav>{% if session.get('user_id') %}<a href="{{ url_for('index') }}">Bosh sahifa</a><a href="{{ url_for('admin') }}">Davomat</a><a href="{{ url_for('reports') }}">Hisobot</a>{% if session.get('role')=='superadmin' %}<a href="{{ url_for('superadmin') }}">Super Admin</a>{% endif %}<a href="{{ url_for('logout') }}">Chiqish</a>{% endif %}</nav></header><main>
+{% with messages=get_flashed_messages(with_categories=true) %}{% for category,message in messages %}<div class="flash">{{ message }}</div>{% endfor %}{% endwith %}
+{% block content %}{% endblock %}</main></body></html>
